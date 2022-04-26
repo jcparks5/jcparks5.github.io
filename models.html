@@ -1,0 +1,217 @@
+<!doctype HTML>
+<html>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<script src="js/aframe.min.js"></script>
+<script src="js/aframe-ar.js"></script>
+<body style="margin: 0px; overflow: hidden;">
+
+<script>
+
+let markerVisible = { "TH": false, "WF0": false, "WF1": false, "WF2": false, "WF3":false, "BK":false, "PT":false};
+let timer = 180;
+let resources = 0;
+let wheatFields = 0;
+let lastCall = 0;
+let buy1 = 1;
+let buy2 = 1;
+let buy3 = 1;
+let buy4 = 1;
+let hasBarracks = 0;
+let troopCount = 0;
+
+AFRAME.registerComponent('registerevents', {
+    init: function ()
+    {
+        let marker = this.el;
+
+        marker.addEventListener('markerFound', function() {
+            markerVisible[ marker.id ] = true;
+            // console.log( markerVisible );
+        });
+
+        marker.addEventListener('markerLost', function() {
+            markerVisible[ marker.id ] = false;
+            // console.log( markerVisible );
+        });
+    }
+});
+
+AFRAME.registerComponent('loop',
+{
+    init: function()
+    {
+
+    },
+
+    tick: function (time, deltaTime)
+    {
+
+        document.getElementById("time_left").color = "blue";
+        // for convenience
+        let mv = markerVisible, r = "TH", w = "WF0", h = "WF1", e = "WF2", t = "WF3", b = "BK", p = "PT";
+        if (timer == 180)
+        {
+          if ( mv[r] && mv[w])
+          {
+            timer--;
+            document.getElementById("time_left").setAttribute("value", timer);
+            document.getElementById("money").setAttribute("value", resources);
+            wheatFields = 1;
+          }
+        }
+        if((timer) > 0 && (timer < 180))
+        {
+          if (new Date()-1000 > lastCall)
+          {
+            resources += wheatFields;
+            timer--;
+            document.getElementById("time_left").setAttribute("value", timer);
+            document.getElementById("money").setAttribute("value", resources);
+            lastCall = new Date();
+          }
+          if(mv[h])
+          {
+            if(resources > 20 && buy1 == 1)
+            {
+              wheatFields += 1;
+              resources -= 20;
+              document.getElementById("bonus1").setAttribute("value", "");
+              buy1 = 0;
+            }
+          }
+          if(mv[e])
+          {
+            if(resources > 60 && buy2 == 1)
+            {
+              wheatFields += 2;
+              resources -= 60;
+              document.getElementById("bonus2").setAttribute("value", "");
+              buy2 = 0;
+            }
+          }
+          if(mv[t])
+          {
+            if(resources > 100 && buy3 == 1)
+            {
+              wheatFields += 3;
+              resources -= 100;
+              document.getElementById("bonus3").setAttribute("value", "");
+              buy3 = 0;
+            }
+          }
+          if(mv[b])
+          {
+            if(resources > 50 && buy4 == 1)
+            {
+              hasBarracks = 1;
+              troopCount = 10;
+              resources -= 50;
+              document.getElementById("bonus3").setAttribute("value", "");
+              buy4 = 0;
+            }
+          }
+          if (hasBarracks == 1)
+          {
+            document.getElementById("housing").setAttribute("value", troopCount);
+            if(mv[p] && resources > 15)
+            {
+              troopCount += 1;
+              resources -= 15;
+            }
+          }
+        }
+        if(timer == 90)
+        {
+          if(troopCount > 15)
+          {
+            document.getElementById("time_left").setAttribute("value", "You survied the first Raid!");
+          } else {
+            timer = 0;
+          }
+        }
+        if(timer == 0)
+        {
+          if(troopCount > 60)
+          {
+            document.getElementById("time_left").setAttribute("value", "You Win!");
+          } else {
+            document.getElementById("time_left").setAttribute("value", "You Lose!");
+          }
+        }
+        console.log(timer);
+    }
+});
+
+</script>
+
+<a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+
+    <a-assets>
+        <a-asset-item id="field" src="models/wheat.gltf"></a-asset-item>
+        <a-asset-item id="base" src="models/House/scene.gltf"></a-asset-item>
+        <a-asset-item id="barracksPlace" src="models/scene.gltf"></a-asset-item>
+	</a-assets>
+
+
+    <a-marker type="pattern" url="data/alpha.patt" id="WF0" registerevents>
+      <a-text id="money" value="hello" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="gold" rotation="-90 0 0" align="center" scale="2 2 2"></a-text>
+        <a-entity   position="0 0 0"
+                    rotation="0 0 0"
+                    scale="0.01 0.01 0.01"
+                    gltf-model="#field" >
+        </a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" url="data/phi.patt" id="WF1" registerevents>
+      <a-text id="bonus1" value="X" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+        <a-entity   position="0 0 0"
+                    rotation="0 0 0"
+                    scale="0.01 0.01 0.01"
+                    gltf-model="#field" >
+        </a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" url="data/delta.patt" id="WF2" registerevents>
+      <a-text id="bonus2" value="X" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+        <a-entity   position="0 0 0"
+                    rotation="0 0 0"
+                    scale="0.01 0.01 0.01"
+                    gltf-model="#field" >
+        </a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" url="data/epsilon.patt" id="WF3" registerevents>
+      <a-text id="bonus3" value="X" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+        <a-entity   position="0 0 0"
+                    rotation="0 0 0"
+                    scale="0.01 0.01 0.01"
+                    gltf-model="#field" >
+        </a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" url="data/pi.patt" id="TH" registerevents>
+      <a-text id="time_left" value="hello" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="blue" rotation="-90 0 0" align="center" scale="2 2 2"></a-text>
+        <a-entity   position="0 0 0"
+                    rotation="0 0 0"
+                    scale="0.05 0.05 0.05"
+                    gltf-model="#base" >
+        </a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" url="data/gamma.patt" id="BK" registerevents>
+      <a-text id="housing" value="X" font="fonts/Exo2Bold.fnt" position="0 1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+        <a-entity   position="0 0 0"
+                    rotation="0 0 0"
+                    scale="0.1 0.1 0.1"
+                    gltf-model="#barracksPlace" >
+        </a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" url="data/kanji.patt" id="PT" registerevents></a-marker>
+
+    <a-entity camera></a-entity>
+    <a-entity loop></a-entity>
+
+</a-scene>
+</body>
+</html>
