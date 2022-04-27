@@ -8,7 +8,7 @@
 <script>
 
 let markerVisible = { "TH": false, "WF0": false, "WF1": false, "WF2": false, "WF3":false, "BK":false, "PT":false};
-let timer = 180;
+let timer = 182;
 let resources = 0;
 let wheatFields = 0;
 let lastCall = 0;
@@ -49,7 +49,7 @@ AFRAME.registerComponent('loop',
         document.getElementById("time_left").color = "blue";
         // for convenience
         let mv = markerVisible, r = "TH", w = "WF0", h = "WF1", e = "WF2", t = "WF3", b = "BK", p = "PT";
-        if (timer == 180)
+        if (timer == 182)
         {
           if ( mv[r] && mv[w])
           {
@@ -59,13 +59,18 @@ AFRAME.registerComponent('loop',
             wheatFields = 1;
           }
         }
-        if((timer) > 0 && (timer < 180))
+        if((timer) > 0 && (timer < 182))
         {
           if (new Date()-1000 > lastCall)
           {
             resources += wheatFields;
             timer--;
-            document.getElementById("time_left").setAttribute("value", timer);
+            if(timer > 90)
+            {
+              document.getElementById("time_left").setAttribute("value", timer + "\nRaid at 90" );
+            } else {
+              document.getElementById("time_left").setAttribute("value", timer + "\nRaid at 0" );
+            }
             document.getElementById("money").setAttribute("value", resources);
             lastCall = new Date();
           }
@@ -122,10 +127,8 @@ AFRAME.registerComponent('loop',
         }
         if(timer == 90)
         {
-          if(troopCount >= 10)
+          if(troopCount < 10)
           {
-            document.getElementById("time_left").setAttribute("value", "You survied the first Raid!");
-          } else {
             timer = 0;
           }
         }
@@ -151,51 +154,51 @@ AFRAME.registerComponent('loop',
 	</a-assets>
 
 
-    <a-marker type="pattern" url="data/alpha.patt" id="WF0" registerevents>
-      <a-text id="money" value="hello" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="gold" rotation="-90 0 0" align="center" scale="2 2 2"></a-text>
+    <a-marker type="pattern" url="data/epsilon.patt" id="WF0" registerevents>
+      <a-text id="money" value="hello" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="gold" rotation="-90 0 0" align="center" scale="2 2 2"></a-text>
         <a-entity   position="0 0 0"
                     rotation="0 0 0"
-                    scale="0.01 0.01 0.01"
+                    scale="0.005 0.005 0.005"
                     gltf-model="#field" >
         </a-entity>
     </a-marker>
 
     <a-marker type="pattern" url="data/phi.patt" id="WF1" registerevents>
-      <a-text id="bonus1" value="X" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+      <a-text id="bonus1" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
         <a-entity   position="0 0 0"
                     rotation="0 0 0"
-                    scale="0.01 0.01 0.01"
+                    scale="0.005 0.005 0.005"
                     gltf-model="#field" >
         </a-entity>
     </a-marker>
 
     <a-marker type="pattern" url="data/delta.patt" id="WF2" registerevents>
-      <a-text id="bonus2" value="X" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+      <a-text id="bonus2" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
         <a-entity   position="0 0 0"
                     rotation="0 0 0"
-                    scale="0.01 0.01 0.01"
+                    scale="0.005 0.005 0.005"
                     gltf-model="#field" >
         </a-entity>
     </a-marker>
 
-    <a-marker type="pattern" url="data/epsilon.patt" id="WF3" registerevents>
-      <a-text id="bonus3" value="X" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+    <a-marker type="pattern" url="data/alpha.patt" id="WF3" registerevents>
+      <a-text id="bonus3" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
         <a-entity   position="0 0 0"
                     rotation="0 0 0"
-                    scale="0.01 0.01 0.01"
+                    scale="0.005 0.005 0.005"
                     gltf-model="#field" >
         </a-entity>
     </a-marker>
 
     <a-marker type="pattern" url="data/pi.patt" id="TH" registerevents>
-      <a-text id="time_left" value="hello" font="fonts/Exo2Bold.fnt" position="0 2.2 0" color="blue" rotation="-90 0 0" align="center" scale="2 2 2"></a-text>
+      <a-text id="time_left" value="hello" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="blue" rotation="-90 0 0" align="center" scale="2 2 2"></a-text>
       <a-box position="0 0.5 0"
              material="color: red; transparent: true; opacity: 0.50;">
       </a-box>
     </a-marker>
 
     <a-marker type="pattern" url="data/gamma.patt" id="BK" registerevents>
-      <a-text id="housing" value="X" font="fonts/Exo2Bold.fnt" position="0 1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+      <a-text id="housing" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
       <a-box position="0 0.5 0"
              material="color: blue; transparent: true; opacity: 0.50;">
       </a-box>
