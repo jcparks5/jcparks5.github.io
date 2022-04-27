@@ -134,7 +134,7 @@ AFRAME.registerComponent('loop',
         }
         if(timer == 0)
         {
-          if(troopCount >= 60)
+          if(troopCount >= 30)
           {
             document.getElementById("time_left").setAttribute("value", "You Win!");
           } else {
@@ -164,7 +164,7 @@ AFRAME.registerComponent('loop',
     </a-marker>
 
     <a-marker type="pattern" url="data/phi.patt" id="WF1" registerevents>
-      <a-text id="bonus1" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+      <a-text id="bonus1" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="5 5 5"></a-text>
         <a-entity   position="0 0 0"
                     rotation="0 0 0"
                     scale="0.005 0.005 0.005"
@@ -173,7 +173,7 @@ AFRAME.registerComponent('loop',
     </a-marker>
 
     <a-marker type="pattern" url="data/delta.patt" id="WF2" registerevents>
-      <a-text id="bonus2" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+      <a-text id="bonus2" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="5 5 5"></a-text>
         <a-entity   position="0 0 0"
                     rotation="0 0 0"
                     scale="0.005 0.005 0.005"
@@ -182,7 +182,7 @@ AFRAME.registerComponent('loop',
     </a-marker>
 
     <a-marker type="pattern" url="data/beta.patt" id="WF3" registerevents>
-      <a-text id="bonus3" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+      <a-text id="bonus3" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="5 5 5"></a-text>
         <a-entity   position="0 0 0"
                     rotation="0 0 0"
                     scale="0.005 0.005 0.005"
@@ -205,7 +205,7 @@ AFRAME.registerComponent('loop',
     </a-marker>
 
     <a-marker type="pattern" url="data/LS.patt" id="PT" registerevents>
-      <a-text value="Buying" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="3 3 3"></a-text>
+      <a-text value="Buying" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="90 0 0" align="center" scale="3 3 3"></a-text>
     </a-marker>
 
     <a-entity camera></a-entity>
