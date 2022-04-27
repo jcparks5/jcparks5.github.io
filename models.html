@@ -198,13 +198,15 @@ AFRAME.registerComponent('loop',
     </a-marker>
 
     <a-marker type="pattern" url="data/gamma.patt" id="BK" registerevents>
-      <a-text id="housing" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="10 10 10"></a-text>
+      <a-text id="housing" value="X" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="5 5 5"></a-text>
       <a-box position="0 0.5 0"
              material="color: blue; transparent: true; opacity: 0.50;">
       </a-box>
     </a-marker>
 
-    <a-marker type="pattern" url="data/kanji.patt" id="PT" registerevents></a-marker>
+    <a-marker type="pattern" url="data/kanji.patt" id="PT" registerevents>
+      <a-text value="Buying" font="fonts/Exo2Bold.fnt" position="0 1.1 0" color="red" rotation="-90 0 0" align="center" scale="3 3 3"></a-text>
+    </a-marker>
 
     <a-entity camera></a-entity>
     <a-entity loop></a-entity>
